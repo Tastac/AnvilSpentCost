@@ -1,7 +1,6 @@
 package io.github.tastac.anvilspentcost;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftInventoryAnvil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +8,7 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -29,12 +29,12 @@ public class AnvilSpentCost extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onInventoryOpened(InventoryOpenEvent event){
-        if(event.getInventory() instanceof CraftInventoryAnvil) map.put((Player)event.getPlayer(), getPlayerExp((Player)event.getPlayer()));
+        if(event.getInventory() instanceof AnvilInventory) map.put((Player)event.getPlayer(), getPlayerExp((Player)event.getPlayer()));
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
-        if(event.getSlot() == 2 && event.getClickedInventory() instanceof CraftInventoryAnvil && (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY || event.getAction() == InventoryAction.PICKUP_ONE || event.getAction() == InventoryAction.PICKUP_SOME || event.getAction() == InventoryAction.PICKUP_HALF || event.getAction() == InventoryAction.PICKUP_ALL)){
+        if(event.getSlot() == 2 && event.getClickedInventory() instanceof AnvilInventory && (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY || event.getAction() == InventoryAction.PICKUP_ONE || event.getAction() == InventoryAction.PICKUP_SOME || event.getAction() == InventoryAction.PICKUP_HALF || event.getAction() == InventoryAction.PICKUP_ALL)){
             Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
                 Player player = (Player)event.getWhoClicked();
                 player.sendMessage(message.replace("{exp}", (map.get(player) - getPlayerExp(player) + "")));
@@ -46,7 +46,7 @@ public class AnvilSpentCost extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onInventoryClosed(InventoryCloseEvent event){
-        if(event.getInventory() instanceof CraftInventoryAnvil) map.remove(event.getPlayer());
+        if(event.getInventory() instanceof AnvilInventory) map.remove(event.getPlayer());
     }
 
     public static int getExpToLevelUp(int level){
