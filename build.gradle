@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'io.github.tastac'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "https://papermc.io/repo/repository/maven-public/" }
+    flatDir {
+        dirs './libs'
+    }
+}
+
+dependencies {
+    implementation group: "com.destroystokyo.paper", name: "paper-api", version: "1.15.2-R0.1-SNAPSHOT"
+    implementation name: "craftbukkit-1.15-R0.1-SNAPSHOT"
+}

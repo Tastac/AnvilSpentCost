@@ -1,0 +1,5 @@
+name: AnvilSpentCost
+version: 1.0.0
+author: [Tastac]
+
+main: io.github.tastac.anvilspentcost.AnvilSpentCost

@@ -1,0 +1,2 @@
+#The message that is sent to the player. {exp} is where the xp used will be entered
+message: "You have spent {exp} xp for this repair."
